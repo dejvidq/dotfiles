@@ -212,3 +212,19 @@ export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 alias vim=nvim
+
+function activate_venv(){
+	if [[ -z "$VIRTUAL_ENV" ]] ; then
+		if [[ -d ./venv ]] ; then
+			source ./venv/bin/activate
+		fi
+	else
+		parentdir="$(dirname "$VIRTUAL_ENV")"
+		if [[ "$PWD"/ != "$parentdir"/* ]] ; then
+			deactivate
+		fi
+	fi
+}
+function cd() {
+	builtin cd "$@" && activate_venv;
+}
