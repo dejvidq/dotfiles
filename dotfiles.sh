@@ -16,7 +16,7 @@ if [[ ! $(ls -A ~/.bash_it) ]]; then
     printf y y y | ~/.bash_it/install.sh 
 fi
 # 2.
-if [[ ! $(ls -A "$HOME/.local/share/nvim/site/autoload/plug.vim" ]]; then
+if [[ ! $(ls -A "$HOME/.local/share/nvim/site/autoload/plug.vim") ]]; then
 	sh -c 'curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 fi
@@ -30,7 +30,7 @@ echo "Overriding existing config files."
 cp .bashrc ~/.bashrc
 cp .inputrc ~/.inputrc
 cp .bash_aliases ~/.bash_aliases
-[[ -z "$(command -v __git_ps1)" ]] && {
+[[ -z "$(ls ~/.bash_git)" ]] && {
 	curl -L https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > ~/.bash_git
     echo "source ~/.bash_git" >> ~/.bashrc    
 }
