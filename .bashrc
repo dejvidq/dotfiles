@@ -1,4 +1,6 @@
 source ~/.bash_git
+#TODO
+# Dodac opakowanie "cd" zeby aktywowalo virtulenv po wejsciu do folderu gdzie taki venv jest, musi tylko trzymac sie tego venva nawet jesli wchodzimy glebiej, za to po wyjsciu z tego folderu ma go deaktywowac
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -206,7 +208,6 @@ export SCM_GIT_SHOW_MINIMAL_INFO=false
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
-eval "$(zoxide init bash)"
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
