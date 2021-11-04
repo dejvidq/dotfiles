@@ -2,8 +2,6 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'haya14busa/incsearch.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'scrooloose/nerdtree'
-Plug 'kien/ctrlp.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -13,7 +11,29 @@ Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-python/python-syntax'
 Plug 'nvie/vim-flake8'
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'romgrk/barbar.nvim'
 call plug#end()
+
+set mouse+=a
+set termguicolors
+lua << EOF
+require'nvim-tree'.setup {
+	disable_netrw = true,
+	open_on_setup = true,
+	open_on_tab = true,
+	update_cwd = true,
+	filters = {
+		dotfiles = true
+	},
+	view = {
+		width = 40
+	}
+}
+require("indent_blankline").setup {}
+EOF
 
 
 :command! -bar -bang Q quit<bang>
@@ -42,20 +62,14 @@ call plug#end()
 :map ?  <Plug>(incsearch-backward)
 :map g/ <Plug>(incsearch-stay)
 :map  <C-t> :tabnew<CR>
-:map  <C-Right> :tabn<CR>
-:map  <C-Left> :tabp<CR>
-:map  <C-l> :tabn<CR>
-:map  <C-h> :tabp<CR>
-:map  <C-a> :qa<CR>
+:map  <C-S-Right> :tabn<CR>
+:map  <C-S-Left> :tabp<CR>
+:map  <C-S-l> :tabn<CR>
+:map  <C-S-h> :tabp<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <C-w> :q<CR>
 nnoremap <C-e> <C-w><C-w>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-y> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-let NERDTreeShowHidden=1
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | wincmd p | endif
+nnoremap <C-y> :NvimTreeToggle<CR>
 
 " for coc taken from its github
 " START
@@ -145,4 +159,13 @@ nnoremap <silent> <leader>fl :Lines<CR>
 nnoremap <silent> <leader>gb :Git blame<CR>
 nnoremap <silent> <leader>gs :Git<CR>
 nnoremap <silent> <leader>gd :Git diff<CR>
-let g:NERDTreeWinSize=60
+nnoremap <silent> <C-Right> :BufferNext<CR>
+nnoremap <silent> <C-Left> :BufferPrevious<CR>
+nnoremap <silent> <C-l> :BufferNext<CR>
+nnoremap <silent> <C-h> :BufferPrevious<CR>
+nnoremap <silent> <leader>bn :BufferNext<CR>
+nnoremap <silent> <leader>bp :BufferPrevious<CR>
+nnoremap <silent> <leader>e :edit<space>
+nnoremap <silent> <leader>q :bd<CR>
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
