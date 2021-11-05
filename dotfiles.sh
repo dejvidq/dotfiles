@@ -6,6 +6,7 @@
 # 3. Create similar file for powershell
 # 4. Add option to restore backup
 # 5. Rewrite TODO to Readme.md (or/and github issues)
+# 6. Instead of writing needed software just check if it's installed and if not print it.
 
 # 0. Check if git installed. If not, abort
 printf "Software required to make it work correctly:\n"
@@ -15,9 +16,37 @@ printf "\t* ag (the_silver_searcher)\n"
 printf "\t* bash-it (Will be installed automatically)\n"
 printf "\t* fzf (Will be installed automatically)\n"
 
+FILE_LIST=($HOME/.bashrc $HOME/.bash_aliases)
+
+function backup_dotfiles() {
+	BACKUP_PATH="$HOME/.backup/dotfiles"
+	mkdir -p $BACKUP_PATH
+	cp $HOME/.bashrc $BACKUP_PATH
+	cp $HOME/.bash_aliases $BACKUP_PATH
+	cp $HOME/.inputrc $BACKUP_PATH
+	cp $HOME/.config/nvim/init.vim $BACKUP_PATH
+	cp $HOME/.config/nvim/coc-settings.json $BACKUP_PATH
+	cp $HOME/.bash_it/themes/dawid/dawid.theme.bash $BACKUP_PATH
+	current_date=$(date '+%Y-%m-%dT%H-%M')
+	tar -czvf "$HOME/.backup/dotfiles_$current_date.tar.gz" -C $BACKUP_PATH .
+}
+
+function backup() {
+    while true; do
+        read -rp "Do you want to backup your files before overriding? " yn
+            case $yn in
+            [Yy]* ) backup_dotfiles; break;;
+            [Nn]* ) printf "Your files will be overriden without backing them up!"; exit;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+}
+
 function setup_dotfiles() {
-    if [[ -z "$(command -v git)" || -z "$(command -v nvim)" ]]; then
-    	echo "Git and neovim are mandatory. Install the one which is missing and run this script again"
+	backup
+	exit 1
+    if [[ -z "$(command -v git)" ]]; then
+    	echo "Git is mandatory in order to install needed software. Install it and run this script again"
 	    exit 1
     fi
     # 1. 
@@ -46,7 +75,7 @@ function setup_dotfiles() {
     }
     mkdir -p ~/.bash_it/themes/dawid && cp dawid.theme.bash ~/.bash_it/themes/dawid/dawid.theme.bash
     cp ~/.config/nvim/init.vim ~/.config/nvim/init.vim.bak && cp init.vim ~/.config/nvim/init.vim
-    cp ~/.config/nvim/coc-settings.json ~/.config/nvim/init.vim.bak && cp coc-settings.json ~/.config/nvim/coc-settings.json
+    cp ~/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json && cp coc-settings.json ~/.config/nvim/coc-settings.json
 }
 
 function main() {
