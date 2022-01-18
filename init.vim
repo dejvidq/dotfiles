@@ -105,12 +105,7 @@ set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+set signcolumn=yes
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -188,4 +183,11 @@ nnoremap <silent> <leader>q :BufferClose<CR>
 nnoremap <silent> <C-a-q> :qa!<CR>
 inoremap <silent> <C-a-q> <ESC>:qa!<CR>
 nnoremap <silent> <leader>c :CommentToggle<CR>j
+inoremap <silent> <C-f> <ESC>/
+nnoremap <silent> <leader>rg :Rg<CR>
 nnoremap <silent> <leader>py :w<CR>:!python %<CR>
+nnoremap <F3> :set hlsearch!<CR>
+inoremap <F3> <ESC>:set hlsearch!<CR>i
+nnoremap <silent> <leader>ts :Gitsigns toggle_signs<CR>
+nnoremap <silent> <leader>tl :Gitsigns toggle_linehl<CR>
+nnoremap <silent> <leader>tn :Gitsigns toggle_numhl<CR>
