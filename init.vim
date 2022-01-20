@@ -43,8 +43,15 @@ require('nvim_comment').setup()
 require('gitsigns').setup {
 	current_line_blame = true
 }
+require'lspconfig'.bashls.setup{}
 EOF
 
+let g:coc_global_extensions = [
+            \ 'coc-json',
+            \ 'coc-pyright',
+            \ 'coc-go',
+            \ 'coc-sh',
+            \ ]
 
 :command! -bar -bang Q quit<bang>
 " Set line numbers
