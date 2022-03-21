@@ -10,6 +10,8 @@ oh-my-posh --init --shell pwsh --config ~/material.omp.json | Invoke-Expression
 
 Set-Alias -Name ll -Value Get-ChildItem
 Set-Alias -Name vim -Value nvim
+Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
+
 
 . C:\Projects\autoenv-ps1\autoenv.ps1
 $env:VIRTUAL_ENV_DISABLE_PROMPT = 1
@@ -18,6 +20,10 @@ function touch() {
 	foreach ($arg in $args){
 		Write-Output $null > $arg
 	}
+}
+
+function which($command) {
+	Get-Command -Name $command -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Definition -ErrorAction SilentlyContinue
 }
 
 # CaptureScreen is good for blog posts or email showing a transaction
@@ -337,5 +343,6 @@ Set-PSReadLineKeyHandler -Key RightArrow `
         [Microsoft.PowerShell.PSConsoleReadLine]::AcceptNextSuggestionWord($key, $arg)
     }
 }
+
 
 
