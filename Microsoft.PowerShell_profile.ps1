@@ -18,6 +18,7 @@ oh-my-posh --init --shell pwsh --config ~/material.omp.json | Invoke-Expression
 
 Set-Alias -Name ll -Value Get-ChildItem
 Set-Alias -Name vim -Value nvim
+Set-Alias -Name v -Value nvim
 Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
 Set-Alias tig 'C:\Program Files\Git\usr\bin\tig.exe'
 Set-Alias dunk 'C:\Python\Scripts\dunk.exe'
