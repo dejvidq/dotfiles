@@ -18,11 +18,8 @@
                 {
                     "type": "shell",
                     "style": "plain",
-                    "foreground": "#0077c2",
+                    "foreground": "#ff8800",
                     "properties": {
-                        "mapped_shell_names": {
-                            "pwsh": "PS"
-                        },
                         "template": "{{ .Name }} "
                     }
                 },
