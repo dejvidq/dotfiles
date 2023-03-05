@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # TODO
-# 1. Create backups before overriding files.
+# 1. DONE -- Create backups before overriding files.
 # 2. Ask if override existing backups or create another one
 # 3. Create similar file for powershell
 
 # 0. Check if git installed. If not, abort
-if [[ -z "$(command -v git)" ]]; then
+if [[ -z "$(command -v git)" || -z "$(command -v nvim)" ]]; then
 	echo "Git and neovim are mandatory. Install the one which is missing and run this script again"
 	exit 1
 fi
@@ -27,13 +27,13 @@ if [[ -z "$(command -v fzf)" ]]; then
 fi
 
 echo "Overriding existing config files."
-cp .bashrc ~/.bashrc
-cp .inputrc ~/.inputrc
-cp .bash_aliases ~/.bash_aliases
+cp ~/.bashrc ~/.bashrc.bak && cp .bashrc ~/.bashrc
+cp ~/.inputrc ~/.inputrc.bak && cp .inputrc ~/.inputrc
+cp ~/.bash_aliases ~/.bash_aliases.bak && cp .bash_aliases ~/.bash_aliases
 [[ -z "$(ls ~/.bash_git)" ]] && {
 	curl -L https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > ~/.bash_git
     echo "source ~/.bash_git" >> ~/.bashrc    
 }
-cp -r dawid ~/.bash_it/themes/
-cp init.vim ~/.config/nvim/init.vim
-cp coc-settings.json ~/.config/nvim/coc-settings.json
+mkdir -p ~/.bash_it/themes/dawid && cp dawid.theme.bash ~/.bash_it/themes/dawid/dawid.theme.bash
+cp ~/.config/nvim/init.vim ~/.config/nvim/init.vim.bak && cp init.vim ~/.config/nvim/init.vim
+cp ~/.config/nvim/coc-settings.json ~/.config/nvim/init.vim.bak && cp coc-settings.json ~/.config/nvim/coc-settings.json
