@@ -4,6 +4,7 @@
 # 1. DONE -- Create backups before overriding files.
 # 2. Ask if override existing backups or create another one
 # 3. Create similar file for powershell
+# 4. Add option to restore backup
 
 # 0. Check if git installed. If not, abort
 if [[ -z "$(command -v git)" || -z "$(command -v nvim)" ]]; then
