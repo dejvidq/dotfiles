@@ -6,7 +6,7 @@ function cdr(){
 	Set-Location C:\Projects
 }
 
-Set-Alias -Name python38 -Value C:\Python38\python.exe
+Set-Alias -Name python38 -Value C:\Users\dawid.kotwica2\AppData\Local\Programs\Python\Python38\python.exe
 Set-Alias -Name python39 -Value C:\Python39\python.exe
 # / pracowe
 
@@ -18,10 +18,10 @@ oh-my-posh --init --shell pwsh --config ~/material.omp.json | Invoke-Expression
 
 Set-Alias -Name ll -Value Get-ChildItem
 Set-Alias -Name vim -Value nvim
-Set-Alias -Name v -Value nvim
 Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
 Set-Alias tig 'C:\Program Files\Git\usr\bin\tig.exe'
 Set-Alias dunk 'C:\Python\Scripts\dunk.exe'
+Set-Alias jq 'C:\Users\dawid.kotwica2\jq-win64.exe'
 
 function gs() {
 	git status
@@ -372,23 +372,9 @@ Set-PSReadLineKeyHandler -Key RightArrow `
 
 
 function unzipAll($inputString) {
-	$arr = $inputString.Split("`n")
-	foreach ($zip in $arr) {
-		Expand-Archive -Path $zip -DestinationPath $zip.Replace(".zip", "")
-	}
+    Get-ChildItem -Path *.zip | ForEach-Object {Expand-Archive -Path $_.FullName}
 }
 
 function zipAll($inputString) {
-	$arr = $inputString.Split("`n")
-	echo "input: "
-	echo $inputString
-
-	echo "input: "
-	echo "ARR: "
-	echo $arr
-	echo $arr[1]
-	foreach ($zip in $arr) {
-		echo "ZIP: $zip"
-		Compress-Archive $zip\* -DestinationPath "$zip.zip"
-	}
+	Get-ChildItem -Directory | ForEach-Object {Compress-Archive $_\* -DestinationPath ".\$($_.Name).zip"}
 }
