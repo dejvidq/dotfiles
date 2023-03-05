@@ -18,12 +18,12 @@
                 {
                     "type": "shell",
                     "style": "plain",
-                    "powerline_symbol": "\uE0B0",
                     "foreground": "#0077c2",
                     "properties": {
                         "mapped_shell_names": {
                             "pwsh": "PS"
-                        }
+                        },
+						"template": "{{ .Name }} "
                     }
                 },
                 {
