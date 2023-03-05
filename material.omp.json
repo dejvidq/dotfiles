@@ -23,7 +23,7 @@
                         "mapped_shell_names": {
                             "pwsh": "PS"
                         },
-						"template": "{{ .Name }} "
+                        "template": "{{ .Name }} "
                     }
                 },
                 {
@@ -38,7 +38,7 @@
                 {
                     "foreground": "#ffffff",
                     "properties": {
-                        "template": "<#C591E8>\u276f</><#69FF94>\u276f</>"
+                        "template": "<#C591E8>\u276f</><#69FF94>\u276f</> "
                     },
                     "style": "plain",
                     "type": "text"
@@ -47,7 +47,7 @@
                     "foreground": "#56B6C2",
                     "properties": {
                         "style": "folder",
-                        "template": " {{ .Path }} "
+                        "template": "\ue795 {{ .Path }} "
                     },
                     "style": "plain",
                     "type": "path"
@@ -59,10 +59,29 @@
                         "fetch_stash_count": true,
                         "fetch_status": true,
                         "fetch_upstream_icon": true,
-                        "template": "<#5FAAE8>git:(</>{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }}\uf044{{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0}} \uf692 {{ .StashCount }}{{ end }}{{ if gt .WorktreeCount 0}} \uf1bb {{ .WorktreeCount }}{{ end }}<#5FAAE8>) </>"
+                        "template": "<#C591E8>\u276f</><#69FF94>\u276f</> \ue725 <#5FAAE8></>{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0}} \uf692 {{ .StashCount }}{{ end }}{{ if gt .WorktreeCount 0}} \uf1bb {{ .WorktreeCount }}{{ end }}<#5FAAE8> </>"
                     },
                     "style": "plain",
                     "type": "git"
+                },
+                {
+                    "foreground": "#ffffff",
+                    "properties": {
+                        "template": "<#C591E8>\u276f</><#69FF94>\u276f</>"
+                    },
+                    "style": "plain",
+                    "type": "text"
+                },
+                {
+                    "type": "executiontime",
+                    "style": "plain",
+                    "foreground": "#c074f0",
+                    "template": "\ufbab",
+                    "properties": {
+                        "always_enabled": true,
+                        "threshold": 500,
+                        "style": "austin"
+                    }
                 },
                 {
                     "foreground": "#DCB977",
@@ -82,6 +101,14 @@
                     "foreground": "#ffff66",
                     "properties": {
                         "template": "\uF0E7 "
+                    }
+                },
+                {
+                    "type": "text",
+                    "style": "plain",
+                    "foreground": "#968ffc",
+                    "properties": {
+                        "template": "\n>> "
                     }
                 }
             ],
