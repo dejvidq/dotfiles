@@ -16,7 +16,6 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'github/copilot.vim'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'machakann/vim-sandwich'
 
@@ -35,8 +34,6 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'VonHeikemen/lsp-zero.nvim'
 call plug#end()
 
-autocmd VimEnter * Copilot disable
-
 set shell=pwsh
 set shellcmdflag=-command
 set mouse+=a
@@ -48,7 +45,6 @@ lua << EOF
 vim.g.mapleader = " "
 require'nvim-tree'.setup {
 	disable_netrw = true,
-	open_on_setup = true,
 	open_on_tab = true,
 	update_cwd = true,
 	filters = {
@@ -60,14 +56,14 @@ require'nvim-tree'.setup {
 }
 require("indent_blankline").setup {}
 require('nvim_comment').setup()
-require('gitsigns').setup {
+require("gitsigns").setup {
     current_line_blame = true,
 	current_line_blame_opts = {
         virt_text = true,
-        virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
+        virt_text_pos = 'right_align',
         delay = 500,
         ignore_whitespace = false,
-  }
+    }
 }
 require'lspconfig'.bashls.setup{
 	on_attach = on_attach
@@ -80,6 +76,22 @@ local lsp = require('lsp-zero')
 lsp.preset('recommended')
 lsp.nvim_workspace()
 lsp.setup()
+local function open_nvim_tree(data)
+
+  -- buffer is a directory
+  local directory = vim.fn.isdirectory(data.file) == 1
+
+  if not directory then
+    return
+  end
+
+  -- change to the directory
+  vim.cmd.cd(data.file)
+
+  -- open the tree
+  require("nvim-tree.api").tree.open()
+end
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 EOF
 
 :command! -bar -bang Q quit<bang>
