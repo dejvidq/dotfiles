@@ -15,6 +15,8 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'romgrk/barbar.nvim'
 Plug 'terrortylor/nvim-comment'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 call plug#end()
 
 set mouse+=a
@@ -34,6 +36,9 @@ require'nvim-tree'.setup {
 }
 require("indent_blankline").setup {}
 require('nvim_comment').setup()
+require('gitsigns').setup {
+	current_line_blame = true
+}
 EOF
 
 
