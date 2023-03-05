@@ -1,12 +1,14 @@
 using namespace System.Management.Automation
 using namespace System.Management.Automation.Language
 
+# pracowe
 function cdr(){
 	Set-Location C:\Projects
 }
 
 Set-Alias -Name python38 -Value C:\Python38\python.exe
 Set-Alias -Name python39 -Value C:\Python39\python.exe
+# / pracowe
 
 Import-Module -Name Terminal-Icons
 Import-Module oh-my-posh
@@ -18,9 +20,25 @@ Set-Alias -Name ll -Value Get-ChildItem
 Set-Alias -Name vim -Value nvim
 Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
 Set-Alias tig 'C:\Program Files\Git\usr\bin\tig.exe'
+Set-Alias dunk 'C:\Python\Scripts\dunk.exe'
 
+function gs() {
+	git status
+}
 
-. C:\Projects\autoenv-ps1\autoenv.ps1
+function gd() {
+	git diff
+}
+
+function ga() {
+	git add $ARGS
+}
+
+function commit() {
+	git commit $ARGS
+}
+
+. C:\Projects\PowerShell\autoenv\autoenv.ps1
 $env:VIRTUAL_ENV_DISABLE_PROMPT = 1
 
 function touch() {
@@ -352,4 +370,24 @@ Set-PSReadLineKeyHandler -Key RightArrow `
 }
 
 
+function unzipAll($inputString) {
+	$arr = $inputString.Split("`n")
+	foreach ($zip in $arr) {
+		Expand-Archive -Path $zip -DestinationPath $zip.Replace(".zip", "")
+	}
+}
 
+function zipAll($inputString) {
+	$arr = $inputString.Split("`n")
+	echo "input: "
+	echo $inputString
+
+	echo "input: "
+	echo "ARR: "
+	echo $arr
+	echo $arr[1]
+	foreach ($zip in $arr) {
+		echo "ZIP: $zip"
+		Compress-Archive $zip\* -DestinationPath "$zip.zip"
+	}
+}
