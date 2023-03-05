@@ -1,0 +1,6 @@
+alias szrc="source ~/.bashrc"
+alias vzrc="vim ~/.bashrc"
+alias vzal="vim ~/.bash_aliases"
+alias v="vim"
+alias c="clear"
+alias ll="ls -lA"
