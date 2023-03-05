@@ -1,6 +1,12 @@
 using namespace System.Management.Automation
 using namespace System.Management.Automation.Language
- 
+
+function cdr(){
+	Set-Location C:\Projects
+}
+
+Set-Alias -Name python38 -Value C:\Python38\python.exe
+Set-Alias -Name python39 -Value C:\Python39\python.exe
 
 Import-Module -Name Terminal-Icons
 Import-Module oh-my-posh
@@ -11,6 +17,7 @@ oh-my-posh --init --shell pwsh --config ~/material.omp.json | Invoke-Expression
 Set-Alias -Name ll -Value Get-ChildItem
 Set-Alias -Name vim -Value nvim
 Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
+Set-Alias tig 'C:\Program Files\Git\usr\bin\tig.exe'
 
 
 . C:\Projects\autoenv-ps1\autoenv.ps1
