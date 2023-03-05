@@ -188,3 +188,4 @@ nnoremap <silent> <leader>q :BufferClose<CR>
 nnoremap <silent> <C-a-q> :qa!<CR>
 inoremap <silent> <C-a-q> <ESC>:qa!<CR>
 nnoremap <silent> <leader>c :CommentToggle<CR>j
+nnoremap <silent> <leader>py :w<CR>:!python %<CR>
