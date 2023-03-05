@@ -16,7 +16,6 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'github/copilot.vim'
 Plug 'williamboman/nvim-lsp-installer'
 
 " Autocompletion
@@ -33,8 +32,6 @@ Plug 'rafamadriz/friendly-snippets'
 
 Plug 'VonHeikemen/lsp-zero.nvim'
 call plug#end()
-
-autocmd VimEnter * Copilot disable
 
 set mouse+=a
 set termguicolors
@@ -147,3 +144,4 @@ nnoremap <space>f <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <leader>do <cmd>lua vim.diagnostic.open_float()<CR>
 nnoremap <space>v <c-v>
 nnoremap <silent> <leader>b :Gitsigns blame_line<CR>
+inoremap jk <ESC>
