@@ -17,7 +17,6 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'github/copilot.vim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update3
 Plug 'williamboman/nvim-lsp-installer'
 
 " Autocompletion
@@ -35,6 +34,7 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'VonHeikemen/lsp-zero.nvim'
 call plug#end()
 
+autocmd VimEnter * Copilot disable
 
 set mouse+=a
 set termguicolors
@@ -56,7 +56,7 @@ require'nvim-tree'.setup {
 require("indent_blankline").setup {}
 require('nvim_comment').setup()
 require('gitsigns').setup {
-	current_line_blame = true
+	current_line_blame = false,
 }
 require'lspconfig'.bashls.setup{
 	on_attach = on_attach
@@ -105,8 +105,8 @@ nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>i
 nnoremap <C-w> :q<CR>
 inoremap <C-w> <ESC>:q<CR>i
-nnoremap <C-q> <C-w><C-w>
-inoremap <C-e> <ESC><C-w><C-w>i
+nnoremap <C-b> <C-w><C-w>
+inoremap <C-b> <ESC><C-w><C-w>i
 nnoremap <C-y> :NvimTreeToggle<CR>
 inoremap <C-y> <ESC>:NvimTreeToggle<CR>i
 nnoremap <silent> <leader>ff :Files<CR>
@@ -141,3 +141,6 @@ nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <space>f <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <leader>do <cmd>lua vim.diagnostic.open_float()<CR>
+nnoremap <space>v <c-v>
+nnoremap <silent> <leader>b :Gitsigns blame_line<CR>
