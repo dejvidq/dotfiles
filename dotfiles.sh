@@ -5,6 +5,7 @@
 # 2. Ask if override existing backups or create another one
 # 3. Create similar file for powershell
 # 4. Add option to restore backup
+# 5. Rewrite TODO to Readme.md (or/and github issues)
 
 # 0. Check if git installed. If not, abort
 printf "Software required to make it work correctly:\n"
