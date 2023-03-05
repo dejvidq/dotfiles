@@ -1,6 +1,5 @@
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'haya14busa/incsearch.vim'
-Plug 'tomtom/tcomment_vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -15,6 +14,7 @@ Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'romgrk/barbar.nvim'
+Plug 'terrortylor/nvim-comment'
 call plug#end()
 
 set mouse+=a
@@ -26,13 +26,14 @@ require'nvim-tree'.setup {
 	open_on_tab = true,
 	update_cwd = true,
 	filters = {
-		dotfiles = true
+		dotfiles = false,
 	},
 	view = {
 		width = 40
 	}
 }
 require("indent_blankline").setup {}
+require('nvim_comment').setup()
 EOF
 
 
@@ -166,6 +167,6 @@ nnoremap <silent> <C-h> :BufferPrevious<CR>
 nnoremap <silent> <leader>bn :BufferNext<CR>
 nnoremap <silent> <leader>bp :BufferPrevious<CR>
 nnoremap <silent> <leader>e :edit<space>
-nnoremap <silent> <leader>q :bd<CR>
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+nnoremap <silent> <leader>q :BufferClose<CR>
+nnoremap <silent> <C-a-q> :qa!<CR>
+nnoremap <silent> <leader>c :CommentToggle<CR>j
