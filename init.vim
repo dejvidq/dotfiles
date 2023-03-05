@@ -41,6 +41,7 @@ set termguicolors
 colorscheme dracula
 highlight Normal guibg=None
 lua << EOF
+vim.g.mapleader = " "
 require'nvim-tree'.setup {
 	disable_netrw = true,
 	open_on_setup = true,
@@ -126,6 +127,7 @@ nnoremap <silent> <leader>q :BufferClose<CR>
 nnoremap <silent> <C-a-q> :qa!<CR>
 inoremap <silent> <C-a-q> <ESC>:qa!<CR>
 nnoremap <silent> <leader>c :CommentToggle<CR>j
+vnoremap <silent> <leader>c :CommentToggle<CR>
 inoremap <silent> <C-f> <ESC>/
 nnoremap <silent> <leader>rg :Rg<CR>
 nnoremap <silent> <leader>p :w<CR>:term python %<CR>
@@ -135,6 +137,7 @@ nnoremap <silent> <leader>ts :Gitsigns toggle_signs<CR>
 nnoremap <silent> <leader>tl :Gitsigns toggle_linehl<CR>
 nnoremap <silent> <leader>tn :Gitsigns toggle_numhl<CR>
 vnoremap  y  "+y
+nnoremap  y  "+y
 nnoremap  yy  "+yy
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
