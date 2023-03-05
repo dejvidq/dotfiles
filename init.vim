@@ -1,8 +1,5 @@
 call plug#begin(stdpath('data') . '/plugged')
-Plug 'haya14busa/incsearch.vim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-python/python-syntax'
@@ -18,6 +15,7 @@ Plug 'danilo-augusto/vim-afterglow'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'machakann/vim-sandwich'
+Plug 'bogado/file-line'
 
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
@@ -35,7 +33,7 @@ Plug 'VonHeikemen/lsp-zero.nvim'
 call plug#end()
 
 set shell=pwsh
-set shellcmdflag=-command
+set shellcmdflag=-command "pwd"
 set mouse+=a
 set termguicolors
 colorscheme dracula
@@ -57,7 +55,7 @@ require'nvim-tree'.setup {
 require("indent_blankline").setup {}
 require('nvim_comment').setup()
 require("gitsigns").setup {
-    current_line_blame = true,
+    current_line_blame = false,
 	current_line_blame_opts = {
         virt_text = true,
         virt_text_pos = 'right_align',
@@ -116,9 +114,6 @@ EOF
 :set wildmenu
 :set wildmode=longest:full,full
 :set ts=4 sw=4
-:map /  <Plug>(incsearch-forward)
-:map ?  <Plug>(incsearch-backward)
-:map g/ <Plug>(incsearch-stay)
 :map  <leader>t :tabnew<CR>
 :map  <C-S-Right> :tabn<CR>
 :map  <C-S-Left> :tabp<CR>
@@ -172,3 +167,8 @@ nnoremap <leader>dp <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <space>v <c-v>
 nnoremap <silent> <leader>b :Gitsigns blame_line<CR>
 inoremap jk <ESC>
+nnoremap <A-Right> <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <A-Left> <cmd>lua vim.diagnostic.goto_prev()<CR>
+inoremap <A-Right> <cmd>lua vim.diagnostic.goto_next()<CR>
+inoremap <A-Left> <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <leader>b :Gitsigns toggle_current_line_blame<CR>

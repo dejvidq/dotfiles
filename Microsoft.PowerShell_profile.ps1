@@ -7,6 +7,7 @@ function cdr(){
 }
 
 Set-Alias -Name python39 -Value C:\Python39\python.exe
+Set-Alias -Name python310 -Value C:\Python310\python.exe
 # / pracowe
 
 Import-Module -Name Terminal-Icons
@@ -17,9 +18,14 @@ oh-my-posh --init --shell pwsh --config ~/material.omp.json | Invoke-Expression
 
 Set-Alias -Name ll -Value Get-ChildItem
 Set-Alias -Name vim -Value nvim
+Set-Alias -Name v -Value nvim
+function vinit() {
+	nvim $HOME\AppData\Local\nvim\init.vim
+}
+
 Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
 Set-Alias tig 'C:\Program Files\Git\usr\bin\tig.exe'
-Set-Alias dunk 'C:\Python\Scripts\dunk.exe'
+Set-Alias jq "$HOME\jq-win64.exe"
 
 function gs() {
 	git status
@@ -345,8 +351,10 @@ Set-PSReadLineKeyHandler -Key "Alt+%" `
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 
+try {
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
+} catch {}
 Set-PSReadLineOption -EditMode Windows
 
 # `ForwardChar` accepts the entire suggestion text when the cursor is at the end of the line.
