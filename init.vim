@@ -16,7 +16,9 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'github/copilot.vim'
 Plug 'williamboman/nvim-lsp-installer'
+Plug 'machakann/vim-sandwich'
 
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
@@ -33,10 +35,15 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'VonHeikemen/lsp-zero.nvim'
 call plug#end()
 
+autocmd VimEnter * Copilot disable
+
+set shell=pwsh
+set shellcmdflag=-command
 set mouse+=a
 set termguicolors
 colorscheme dracula
 highlight Normal guibg=None
+highlight NonText guifg=#ffffe0
 lua << EOF
 vim.g.mapleader = " "
 require'nvim-tree'.setup {
@@ -54,7 +61,13 @@ require'nvim-tree'.setup {
 require("indent_blankline").setup {}
 require('nvim_comment').setup()
 require('gitsigns').setup {
-	current_line_blame = false,
+    current_line_blame = true,
+	current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
+        delay = 500,
+        ignore_whitespace = false,
+  }
 }
 require'lspconfig'.bashls.setup{
 	on_attach = on_attach
@@ -101,8 +114,8 @@ EOF
 :map  <C-S-h> :tabp<CR>
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>i
-nnoremap <C-w> :q<CR>
-inoremap <C-w> <ESC>:q<CR>i
+" nnoremap <C-w> :q<CR>
+" inoremap <C-w> <ESC>:q<CR>i
 nnoremap <C-b> <C-w><C-w>
 inoremap <C-b> <ESC><C-w><C-w>i
 nnoremap <C-y> :NvimTreeToggle<CR>
@@ -133,15 +146,17 @@ inoremap <F3> <ESC>:set hlsearch!<CR>i
 nnoremap <silent> <leader>ts :Gitsigns toggle_signs<CR>
 nnoremap <silent> <leader>tl :Gitsigns toggle_linehl<CR>
 nnoremap <silent> <leader>tn :Gitsigns toggle_numhl<CR>
-vnoremap  y  "+y
-nnoremap  y  "+y
-nnoremap  yy  "+yy
+vnoremap <leader>y  "+y
+nnoremap <leader>y  "+y
+nnoremap <leader>yy  "+yy
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <space>f <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <leader>do <cmd>lua vim.diagnostic.open_float()<CR>
+nnoremap <leader>dn <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <leader>dp <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <space>v <c-v>
 nnoremap <silent> <leader>b :Gitsigns blame_line<CR>
 inoremap jk <ESC>
