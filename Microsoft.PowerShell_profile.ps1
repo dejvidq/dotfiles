@@ -6,7 +6,6 @@ function cdr(){
 	Set-Location C:\Projects
 }
 
-Set-Alias -Name python38 -Value C:\Users\dawid.kotwica2\AppData\Local\Programs\Python\Python38\python.exe
 Set-Alias -Name python39 -Value C:\Python39\python.exe
 # / pracowe
 
@@ -21,7 +20,6 @@ Set-Alias -Name vim -Value nvim
 Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
 Set-Alias tig 'C:\Program Files\Git\usr\bin\tig.exe'
 Set-Alias dunk 'C:\Python\Scripts\dunk.exe'
-Set-Alias jq 'C:\Users\dawid.kotwica2\jq-win64.exe'
 
 function gs() {
 	git status
