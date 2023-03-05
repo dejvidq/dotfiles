@@ -17,10 +17,14 @@ Plug 'romgrk/barbar.nvim'
 Plug 'terrortylor/nvim-comment'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'danilo-augusto/vim-afterglow'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 call plug#end()
 
 set mouse+=a
 set termguicolors
+colorscheme dracula
 lua << EOF
 require'nvim-tree'.setup {
 	disable_netrw = true,
