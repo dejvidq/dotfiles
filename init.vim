@@ -36,6 +36,7 @@ set shell=pwsh
 set shellcmdflag=-command "pwd"
 set mouse+=a
 set termguicolors
+set cc=120
 colorscheme dracula
 highlight Normal guibg=None
 highlight NonText guifg=#ffffe0
