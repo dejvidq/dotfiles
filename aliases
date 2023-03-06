@@ -1,0 +1,8 @@
+alias szrc="source ~/.zshrc"
+alias vzrc="vim ~/.zshrc"
+alias vzal="vim ~/.zsh_aliases"
+alias v="vim"
+alias c="clear"
+alias ll="ls -lA"
+alias cd..="cd .."
+alias cd-="cd -"

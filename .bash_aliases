@@ -1,8 +1,0 @@
-alias sbrc="source ~/.bashrc"
-alias vbrc="vim ~/.bashrc"
-alias vbal="vim ~/.bash_aliases"
-alias v="vim"
-alias c="clear"
-alias ll="ls -lA"
-alias cd..="cd .."
-alias cd-="cd -"
