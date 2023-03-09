@@ -2,7 +2,6 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'neovim/nvim-lspconfig'
 Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
-Plug 'vim-python/python-syntax'
 Plug 'nvie/vim-flake8'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
@@ -13,9 +12,11 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'williamboman/nvim-lsp-installer'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'machakann/vim-sandwich'
 Plug 'bogado/file-line'
+Plug 'mfussenegger/nvim-lint'
 
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
@@ -32,8 +33,13 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'VonHeikemen/lsp-zero.nvim'
 call plug#end()
 
-set shell=pwsh
-set shellcmdflag=-command "pwd"
+if has('win32')
+	let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
+	let &shellcmdflag = '-NoLogo -NonInteractive -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;$PSStyle.OutputRendering = [System.Management.Automation.OutputRendering]::PlainText;'
+	let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+	let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+	set shellquote= shellxquote=
+endif
 set mouse+=a
 set termguicolors
 set cc=120
@@ -42,6 +48,11 @@ highlight Normal guibg=None
 highlight NonText guifg=#ffffe0
 lua << EOF
 vim.g.mapleader = " "
+require("mason").setup()
+require("mason-lspconfig").setup()
+require('lint').linters_by_ft = {
+  python = {'flake8', 'mypy'}
+}
 require'nvim-tree'.setup {
 	disable_netrw = true,
 	open_on_tab = true,
@@ -64,12 +75,6 @@ require("gitsigns").setup {
         ignore_whitespace = false,
     }
 }
-require'lspconfig'.bashls.setup{
-	on_attach = on_attach
-}
-require'lspconfig'.pyright.setup{
-	on_attach = on_attach
-}
 local lsp = require('lsp-zero')
 
 lsp.preset('recommended')
@@ -91,6 +96,11 @@ local function open_nvim_tree(data)
   require("nvim-tree.api").tree.open()
 end
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
 EOF
 
 :command! -bar -bang Q quit<bang>
@@ -173,3 +183,4 @@ nnoremap <A-Left> <cmd>lua vim.diagnostic.goto_prev()<CR>
 inoremap <A-Right> <cmd>lua vim.diagnostic.goto_next()<CR>
 inoremap <A-Left> <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <leader>b :Gitsigns toggle_current_line_blame<CR>
+tnoremap jk <C-\><C-n> 
