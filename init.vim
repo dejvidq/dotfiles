@@ -75,6 +75,12 @@ require("gitsigns").setup {
         ignore_whitespace = false,
     }
 }
+require'lspconfig'.pyright.setup{
+    on_atach = on_attach
+}
+require'lspconfig'.bashls.setup{
+    on_atach = on_attach
+}
 local lsp = require('lsp-zero')
 
 lsp.preset('recommended')
