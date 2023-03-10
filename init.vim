@@ -1,4 +1,6 @@
 call plug#begin(stdpath('data') . '/plugged')
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
@@ -138,8 +140,6 @@ EOF
 :map  <C-S-h> :tabp<CR>
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>i
-" nnoremap <C-w> :q<CR>
-" inoremap <C-w> <ESC>:q<CR>i
 nnoremap <C-b> <C-w><C-w>
 inoremap <C-b> <ESC><C-w><C-w>i
 nnoremap <C-y> :NvimTreeToggle<CR>
@@ -181,12 +181,11 @@ nnoremap <space>f <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <leader>do <cmd>lua vim.diagnostic.open_float()<CR>
 nnoremap <leader>dn <cmd>lua vim.diagnostic.goto_next()<CR>
 nnoremap <leader>dp <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <space>v <c-v>
-nnoremap <silent> <leader>b :Gitsigns blame_line<CR>
-inoremap jk <ESC>
 nnoremap <A-Right> <cmd>lua vim.diagnostic.goto_next()<CR>
 nnoremap <A-Left> <cmd>lua vim.diagnostic.goto_prev()<CR>
 inoremap <A-Right> <cmd>lua vim.diagnostic.goto_next()<CR>
 inoremap <A-Left> <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <leader>b :Gitsigns toggle_current_line_blame<CR>
+inoremap jk <ESC>
 tnoremap jk <C-\><C-n> 
+nnoremap <space>v <c-v>
