@@ -45,10 +45,11 @@ if has('win32')
 endif
 set mouse+=a
 set termguicolors
-set cc=120
 colorscheme dracula
 highlight Normal guibg=None
 highlight NonText guifg=#ffffe0
+set cc=120 
+highlight ColorColumn ctermbg=8 guibg=LightGreen
 lua << EOF
 vim.g.mapleader = " "
 require("mason").setup()
