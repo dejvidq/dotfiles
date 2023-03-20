@@ -19,6 +19,7 @@ Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'machakann/vim-sandwich'
 Plug 'bogado/file-line'
 Plug 'mfussenegger/nvim-lint'
+Plug 'yamatsum/nvim-cursorline'
 
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
@@ -104,13 +105,28 @@ local function open_nvim_tree(data)
   require("nvim-tree.api").tree.open()
 end
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  callback = function()
-    require("lint").try_lint()
-  end,
-})
+if vim.fn.executable('flake8') == 1 and vim.fn.executable('mypy') == 1 then
+	vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	  callback = function()
+		require("lint").try_lint()
+	  end,
+	})
+end
+require('nvim-cursorline').setup {
+  cursorline = {
+    enable = true,
+    timeout = 1000,
+    number = false,
+  },
+  cursorword = {
+    enable = true,
+    min_length = 3,
+    hl = { underline = true },
+  }
+}
 EOF
 
+:command! Mypy set makeprg=mypy | silent make % | copen
 :command! -bar -bang Q quit<bang>
 " Set line numbers
 :set number
