@@ -125,6 +125,15 @@ require('nvim-cursorline').setup {
     hl = { underline = true },
   }
 }
+local luasnip = require "luasnip"
+local snippet = luasnip.snippet
+local text = luasnip.text_node
+luasnip.add_snippets("python", {
+	snippet("pdb", {
+		text("import pdb; pdb.set_trace()")
+	})
+})
+require("luasnip.loaders.from_vscode").lazy_load()
 EOF
 
 :command! Mypy set makeprg=mypy | silent make % | copen
