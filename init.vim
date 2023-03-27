@@ -1,8 +1,9 @@
 call plug#begin(stdpath('data') . '/plugged')
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
-Plug 'vim-python/python-syntax'
 Plug 'nvie/vim-flake8'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
@@ -13,9 +14,12 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'williamboman/nvim-lsp-installer'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'machakann/vim-sandwich'
 Plug 'bogado/file-line'
+Plug 'mfussenegger/nvim-lint'
+Plug 'yamatsum/nvim-cursorline'
 
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
@@ -32,16 +36,27 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'VonHeikemen/lsp-zero.nvim'
 call plug#end()
 
-set shell=pwsh
-set shellcmdflag=-command "pwd"
+if has('win32')
+	let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
+	let &shellcmdflag = '-NoLogo -NonInteractive -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;$PSStyle.OutputRendering = [System.Management.Automation.OutputRendering]::PlainText;'
+	let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+	let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+	set shellquote= shellxquote=
+endif
 set mouse+=a
 set termguicolors
-set cc=120
 colorscheme dracula
 highlight Normal guibg=None
 highlight NonText guifg=#ffffe0
+set cc=120 
+highlight ColorColumn ctermbg=8 guibg=LightGreen
 lua << EOF
 vim.g.mapleader = " "
+require("mason").setup()
+require("mason-lspconfig").setup()
+require('lint').linters_by_ft = {
+  python = {'flake8', 'mypy'}
+}
 require'nvim-tree'.setup {
 	disable_netrw = true,
 	open_on_tab = true,
@@ -64,11 +79,11 @@ require("gitsigns").setup {
         ignore_whitespace = false,
     }
 }
-require'lspconfig'.bashls.setup{
-	on_attach = on_attach
-}
 require'lspconfig'.pyright.setup{
-	on_attach = on_attach
+    on_atach = on_attach
+}
+require'lspconfig'.bashls.setup{
+    on_atach = on_attach
 }
 local lsp = require('lsp-zero')
 
@@ -91,8 +106,37 @@ local function open_nvim_tree(data)
   require("nvim-tree.api").tree.open()
 end
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+if vim.fn.executable('flake8') == 1 and vim.fn.executable('mypy') == 1 then
+	vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	  callback = function()
+		require("lint").try_lint()
+	  end,
+	})
+end
+require('nvim-cursorline').setup {
+  cursorline = {
+    enable = true,
+    timeout = 1000,
+    number = false,
+  },
+  cursorword = {
+    enable = true,
+    min_length = 3,
+    hl = { underline = true },
+  }
+}
+local luasnip = require "luasnip"
+local snippet = luasnip.snippet
+local text = luasnip.text_node
+luasnip.add_snippets("python", {
+	snippet("pdb", {
+		text("import pdb; pdb.set_trace()")
+	})
+})
+require("luasnip.loaders.from_vscode").lazy_load()
 EOF
 
+:command! Mypy set makeprg=mypy | silent make % | copen
 :command! -bar -bang Q quit<bang>
 " Set line numbers
 :set number
@@ -122,8 +166,6 @@ EOF
 :map  <C-S-h> :tabp<CR>
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>i
-" nnoremap <C-w> :q<CR>
-" inoremap <C-w> <ESC>:q<CR>i
 nnoremap <C-b> <C-w><C-w>
 inoremap <C-b> <ESC><C-w><C-w>i
 nnoremap <C-y> :NvimTreeToggle<CR>
@@ -165,11 +207,11 @@ nnoremap <space>f <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <leader>do <cmd>lua vim.diagnostic.open_float()<CR>
 nnoremap <leader>dn <cmd>lua vim.diagnostic.goto_next()<CR>
 nnoremap <leader>dp <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <space>v <c-v>
-nnoremap <silent> <leader>b :Gitsigns blame_line<CR>
-inoremap jk <ESC>
 nnoremap <A-Right> <cmd>lua vim.diagnostic.goto_next()<CR>
 nnoremap <A-Left> <cmd>lua vim.diagnostic.goto_prev()<CR>
 inoremap <A-Right> <cmd>lua vim.diagnostic.goto_next()<CR>
 inoremap <A-Left> <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <leader>b :Gitsigns toggle_current_line_blame<CR>
+inoremap jk <ESC>
+tnoremap jk <C-\><C-n> 
+nnoremap <space>v <c-v>
