@@ -21,6 +21,7 @@ Plug 'bogado/file-line'
 Plug 'mfussenegger/nvim-lint'
 Plug 'yamatsum/nvim-cursorline'
 
+Plug 'nvim-treesitter/nvim-treesitter'
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
@@ -34,6 +35,8 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
 
 Plug 'VonHeikemen/lsp-zero.nvim'
+
+Plug 'Exafunction/codeium.vim'
 call plug#end()
 
 if has('win32')
@@ -51,6 +54,19 @@ highlight NonText guifg=#ffffe0
 set cc=120 
 highlight ColorColumn ctermbg=8 guibg=LightGreen
 lua << EOF
+require'nvim-treesitter.configs'.setup {
+  compilers = {
+	"clang"
+  },
+  highlight = {
+    enable = true,
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
 vim.g.mapleader = " "
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -215,3 +231,6 @@ nnoremap <leader>b :Gitsigns toggle_current_line_blame<CR>
 inoremap jk <ESC>
 tnoremap jk <C-\><C-n> 
 nnoremap <space>v <c-v>
+imap <script><silent><nowait><expr> <C-g> codeium#Accept()
+" imap <C-j>   <Cmd>call codeium#CycleCompletions(1)<CR>
+" imap <C-k>   <Cmd>call codeium#CycleCompletions(-1)<CR>

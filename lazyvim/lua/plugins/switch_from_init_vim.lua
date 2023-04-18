@@ -16,6 +16,9 @@ luasnip.add_snippets("python", {
   }),
 })
 require("luasnip.loaders.from_vscode").lazy_load()
+if vim.loop.os_uname().sysname == "Windows_NT" then
+  require("nvim-treesitter.install").compilers = { "clang" }
+end
 return {
   -- add gruvbox
   {
@@ -55,5 +58,31 @@ return {
         hl = { underline = true },
       },
     },
+  },
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "stylua",
+        "flake8",
+      },
+    },
+  },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "mason.nvim" },
+    opts = function()
+      local nls = require("null-ls")
+      return {
+        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+        sources = {
+          nls.builtins.formatting.fish_indent,
+          nls.builtins.diagnostics.fish,
+          nls.builtins.formatting.stylua,
+          nls.builtins.diagnostics.flake8,
+        },
+      }
+    end,
   },
 }
