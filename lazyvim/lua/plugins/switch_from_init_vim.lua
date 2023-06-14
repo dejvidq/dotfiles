@@ -86,6 +86,18 @@ return {
     end,
   },
   {
-    "evanleck/vim-svelte"
-  }
+    "evanleck/vim-svelte",
+  },
+  {
+    "dstein64/vim-startuptime",
+    enabled = false,
+  },
+  {
+    "folke/persistence.nvim",
+    enabled = false,
+  },
+  {
+    "RRethy/vim-illuminate",
+    enabled = false,
+  },
 }
