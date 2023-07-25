@@ -100,4 +100,46 @@ return {
     "RRethy/vim-illuminate",
     enabled = false,
   },
+  {
+    "rcarriga/nvim-notify",
+    enabled = false,
+  },
+  {
+    "stevearc/dressing.nvim",
+    enabled = false,
+  },
+  {
+    "folke/noice.nvim",
+    enabled = false,
+    {
+      "folke/tokyonight.nvim",
+      opts = {
+        transparent = true,
+        styles = {
+          sidebars = "transparent",
+          floats = "transparent",
+        },
+      },
+    },
+  },
+  {
+    "stevearc/aerial.nvim",
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+    cmd = { "AerialToggle" },
+    keys = {
+      { "<leader>dd", "<cmd>AerialToggle<cr>" },
+      { "<leader>df", "<cmd>Telescope aerial<cr>" },
+    },
+    config = function()
+      require("telescope").load_extension("aerial")
+      require("aerial").setup({
+        lazy_load = false,
+      })
+    end,
+  },
 }
