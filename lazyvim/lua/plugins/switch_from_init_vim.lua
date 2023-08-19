@@ -88,40 +88,40 @@ return {
   {
     "evanleck/vim-svelte",
   },
-  {
-    "dstein64/vim-startuptime",
-    enabled = false,
-  },
-  {
-    "folke/persistence.nvim",
-    enabled = false,
-  },
-  {
-    "RRethy/vim-illuminate",
-    enabled = false,
-  },
-  {
-    "rcarriga/nvim-notify",
-    enabled = false,
-  },
-  {
-    "stevearc/dressing.nvim",
-    enabled = false,
-  },
-  {
-    "folke/noice.nvim",
-    enabled = false,
-    {
-      "folke/tokyonight.nvim",
-      opts = {
-        transparent = true,
-        styles = {
-          sidebars = "transparent",
-          floats = "transparent",
-        },
-      },
-    },
-  },
+  -- {
+  --   "dstein64/vim-startuptime",
+  --   enabled = false,
+  -- },
+  -- {
+  --   "folke/persistence.nvim",
+  --   enabled = false,
+  -- },
+  -- {
+  --   "RRethy/vim-illuminate",
+  --   enabled = false,
+  -- },
+  -- {
+  --   "rcarriga/nvim-notify",
+  --   enabled = false,
+  -- },
+  -- {
+  --   "stevearc/dressing.nvim",
+  --   enabled = false,
+  -- },
+  -- {
+  --   "folke/noice.nvim",
+  --   enabled = false,
+  --   {
+  --     "folke/tokyonight.nvim",
+  --     opts = {
+  --       transparent = true,
+  --       styles = {
+  --         sidebars = "transparent",
+  --         floats = "transparent",
+  --       },
+  --     },
+  --   },
+  -- },
   {
     "stevearc/aerial.nvim",
     opts = {},
