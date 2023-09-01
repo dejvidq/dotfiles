@@ -132,8 +132,10 @@ return {
     },
     cmd = { "AerialToggle" },
     keys = {
-      { "<leader>dd", "<cmd>AerialToggle<cr>" },
-      { "<leader>df", "<cmd>Telescope aerial<cr>" },
+      { "<leader>aa", "<cmd>AerialToggle<cr>" },
+      { "<leader>at", "<cmd>Telescope aerial<cr>" },
+      { "{", "<cmd>AerialPrev<cr>" },
+      { "}", "<cmd>AerialNext<cr>" },
     },
     config = function()
       require("telescope").load_extension("aerial")
@@ -147,5 +149,8 @@ return {
     config = function()
       require("troublesum").setup()
     end,
+  },
+  {
+    "mbbill/undotree",
   },
 }
