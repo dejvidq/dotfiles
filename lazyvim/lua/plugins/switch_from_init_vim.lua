@@ -29,6 +29,7 @@ return {
         return vim.fn["codeium#Accept"]()
       end, { expr = true })
     end,
+    enabled = false,
   },
   { "nvie/vim-flake8" },
   {
@@ -150,7 +151,5 @@ return {
       require("troublesum").setup()
     end,
   },
-  {
-    "mbbill/undotree",
-  },
+  { "mbbill/undotree" },
 }

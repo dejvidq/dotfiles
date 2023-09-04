@@ -10,6 +10,9 @@ if vim.fn.executable("flake8") == 1 and vim.fn.executable("mypy") == 1 then
 end
 vim.cmd("command! Mypy set makeprg=mypy | silent make % | copen")
 vim.cmd("command! -bar -bang Q quit<bang>")
-vim.api.nvim_set_keymap("i", "jk", "<ESC>", { noremap = true })
-vim.api.nvim_set_keymap("t", "jk", "<C-\\><C-n>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>v", "<C-v>", { noremap = true })
+vim.keymap.set("i", "jk", "<ESC>")
+vim.keymap.set("t", "jk", "<C-\\><C-n>")
+vim.keymap.set("i", "jj", "<ESC>")
+vim.keymap.set("t", "jj", "<C-\\><C-n>")
+vim.keymap.set("n", "<leader>v", "<C-v>")
+vim.keymap.set("n", "<leader>ut", vim.cmd.UndotreeToggle)
