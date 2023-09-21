@@ -1,13 +1,4 @@
--- since this is just an example spec, don't actually load anything here and return an empty spec
--- stylua: ignore
-
--- every spec file under config.plugins will be loaded automatically by lazy.nvim
---
--- In your plugin files, you can:
--- * add extra plugins
--- * disable/enabled LazyVim plugins
--- * override the configuration of LazyVim plugins
-local luasnip = require "luasnip"
+local luasnip = require("luasnip")
 local snippet = luasnip.snippet
 local text = luasnip.text_node
 luasnip.add_snippets("python", {
@@ -20,11 +11,9 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
   require("nvim-treesitter.install").compilers = { "clang" }
 end
 return {
-  -- add gruvbox
   {
     "Exafunction/codeium.vim",
     config = function()
-      -- Change '<C-g>' here to any keycode you like.
       vim.keymap.set("i", "<C-g>", function()
         return vim.fn["codeium#Accept"]()
       end, { expr = true })
@@ -89,44 +78,9 @@ return {
   {
     "evanleck/vim-svelte",
   },
-  -- {
-  --   "dstein64/vim-startuptime",
-  --   enabled = false,
-  -- },
-  -- {
-  --   "folke/persistence.nvim",
-  --   enabled = false,
-  -- },
-  -- {
-  --   "RRethy/vim-illuminate",
-  --   enabled = false,
-  -- },
-  -- {
-  --   "rcarriga/nvim-notify",
-  --   enabled = false,
-  -- },
-  -- {
-  --   "stevearc/dressing.nvim",
-  --   enabled = false,
-  -- },
-  -- {
-  --   "folke/noice.nvim",
-  --   enabled = false,
-  --   {
-  --     "folke/tokyonight.nvim",
-  --     opts = {
-  --       transparent = true,
-  --       styles = {
-  --         sidebars = "transparent",
-  --         floats = "transparent",
-  --       },
-  --     },
-  --   },
-  -- },
   {
     "stevearc/aerial.nvim",
     opts = {},
-    -- Optional dependencies
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
@@ -152,4 +106,6 @@ return {
     end,
   },
   { "mbbill/undotree" },
+  { "folke/flash.nvim" },
+  { "ggandor/flit.nvim", enabled = true },
 }
