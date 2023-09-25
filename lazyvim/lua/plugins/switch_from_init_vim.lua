@@ -152,4 +152,13 @@ return {
     end,
   },
   { "mbbill/undotree" },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    opts = {
+      enable = true,
+      min_window_height = 15,
+      max_lines = 1,
+    },
+  },
+  { "eandrju/cellular-automaton.nvim" },
 }
