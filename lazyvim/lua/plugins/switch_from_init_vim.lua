@@ -108,4 +108,5 @@ return {
   { "mbbill/undotree" },
   { "folke/flash.nvim" },
   { "ggandor/flit.nvim", enabled = true },
+  { "akinsho/git-conflict.nvim" },
 }
