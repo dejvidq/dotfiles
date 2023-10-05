@@ -70,7 +70,7 @@ return {
     },
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "mason.nvim" },
     opts = function()
@@ -154,11 +154,13 @@ return {
   { "mbbill/undotree" },
   {
     "nvim-treesitter/nvim-treesitter-context",
-    opts = {
-      enable = true,
-      min_window_height = 15,
-      max_lines = 1,
-    },
   },
   { "eandrju/cellular-automaton.nvim" },
+  {
+    "NvChad/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup()
+    end,
+  },
+  { "HiPhish/rainbow-delimiters.nvim" },
 }
