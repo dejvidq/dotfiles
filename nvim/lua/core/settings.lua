@@ -1,5 +1,9 @@
 local opt = vim.opt
 vim.cmd.colorscheme("tokyonight")
+vim.cmd([[highlight clear CursorLineNr]])
+vim.cmd([[highlight clear LineNr]])
+vim.cmd([[highlight LineNr guifg=white]])
+vim.cmd([[highlight CursorLineNr guifg=yellow]])
 -- require("mason").setup()
 -- require("mason-lspconfig").setup()
 --
