@@ -112,3 +112,19 @@ vim.keymap.set("n", "<leader>st", "<cmd>TodoTelescope<cr>", { desc = "Telescope 
 -- Oil
 vim.keymap.set("n", "<leader>e", "<cmd>Oil --float .<cr>", { desc = "Oil in curr dir" })
 vim.keymap.set("n", "<leader>E", "<cmd>Oil --float " .. vim.fn.expand("%:p:h") .. "<cr>", { desc = "Oil in curr dir" })
+
+-- Refactor
+vim.keymap.set("x", "<leader>re", function() require('refactoring').refactor('Extract Function') end,
+    { desc = "Extract Function" })
+vim.keymap.set("x", "<leader>rf", function() require('refactoring').refactor('Extract Function To File') end,
+    { desc = "Extract Function To File" })
+vim.keymap.set("x", "<leader>rv", function() require('refactoring').refactor('Extract Variable') end,
+    { desc = "Extract Variable" })
+vim.keymap.set("n", "<leader>rI", function() require('refactoring').refactor('Inline Function') end,
+    { desc = "Inline Function" })
+vim.keymap.set({ "n", "x" }, "<leader>ri", function() require('refactoring').refactor('Inline Variable') end,
+    { desc = "Inline Variable" })
+vim.keymap.set("n", "<leader>rb", function() require('refactoring').refactor('Extract Block') end,
+    { desc = "Extract Block" })
+vim.keymap.set("n", "<leader>rbf", function() require('refactoring').refactor('Extract Block To File') end,
+    { desc = "Extract Block To File" })
