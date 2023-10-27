@@ -3,11 +3,9 @@ vim.keymap.set("i", "jk", "<ESC>")
 -- Copy & paste
 -- Yank into system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank motion to clipboard" }) -- yank motion
-vim.keymap.set({ "n", "v" }, "<leader>Y", '"+Y', { desc = "Yank line to clipboard" }) -- yank line
 
 -- Delete into system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>d", '"+d', { desc = "Delete motion to clipboard" }) -- delete motion
-vim.keymap.set({ "n", "v" }, "<leader>D", '"+D', { desc = "Delete motion to clipboard" }) -- delete line
+vim.keymap.set({ "n", "v" }, "<leader>dd", '"+d', { desc = "Delete motion to clipboard" }) -- delete motion
 
 -- Paste from system clipboard
 vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste after cursor from clipboard" }) -- paste after cursor
@@ -128,3 +126,32 @@ vim.keymap.set("n", "<leader>rb", function() require('refactoring').refactor('Ex
     { desc = "Extract Block" })
 vim.keymap.set("n", "<leader>rbf", function() require('refactoring').refactor('Extract Block To File') end,
     { desc = "Extract Block To File" })
+
+-- DAP
+vim.keymap.set({ "n", "v" }, "<leader>tb", function() require('dap').toggle_breakpoint() end,
+    { desc = "DAP toggle breakpoint" })
+vim.keymap.set({ "n", "v" }, "<leader>bc", function() require('dap').continue() end,
+    { desc = "DAP continue" })
+vim.keymap.set('n', '<leader>so', function() require('dap').step_over() end, { desc = "DAP step over" })
+vim.keymap.set('n', '<leader>si', function() require('dap').step_into() end, { desc = "DAP step into" })
+vim.keymap.set('n', '<leader>sO', function() require('dap').step_out() end, { desc = "DAP step over" })
+vim.keymap.set('n', '<leader>lp',
+    function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
+    { desc = "DAP set breakpoint with log" })
+vim.keymap.set('n', '<leader>dr', function() require('dap').repl.open() end, { desc = "DAP REPL open" })
+vim.keymap.set('n', '<leader>dl', function() require('dap').run_last() end, { desc = "DAP run last" })
+vim.keymap.set({ 'n', 'v' }, '<leader>dh', function()
+    require('dap.ui.widgets').hover()
+end, { desc = "DAP hover" })
+vim.keymap.set({ 'n', 'v' }, '<leader>dp', function()
+    require('dap.ui.widgets').preview()
+end, { desc = "DAP preview" })
+vim.keymap.set('n', '<leader>df', function()
+    local widgets = require('dap.ui.widgets')
+    widgets.centered_float(widgets.frames)
+end, { desc = "DAP frames" })
+vim.keymap.set('n', '<leader>ds', function()
+    local widgets = require('dap.ui.widgets')
+    widgets.centered_float(widgets.scopes)
+end, { desc = "DAP scopes" })
+vim.keymap.set("n", "<leader>dt", function() require('dap').terminate() end, { desc = "DAP terminate" })

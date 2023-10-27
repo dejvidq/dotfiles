@@ -11,7 +11,6 @@ Set-Alias -Name python310 -Value C:\Python310\python.exe
 # / pracowe
 
 Import-Module -Name Terminal-Icons
-Import-Module oh-my-posh
 Import-Module PSReadLine
 
 oh-my-posh --init --shell pwsh --config ~/material.omp.json | Invoke-Expression
@@ -27,7 +26,7 @@ Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
 Set-Alias tig 'C:\Program Files\Git\usr\bin\tig.exe'
 Set-Alias jq "$HOME\jq-win64.exe"
 
-. C:\Projects\PowerShell\autoenv\autoenv.ps1
+. C:\Projects\PowerShell\autoenv-ps1\autoenv.ps1
 $env:VIRTUAL_ENV_DISABLE_PROMPT = 1
 
 function touch() {
