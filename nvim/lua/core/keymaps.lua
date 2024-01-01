@@ -135,9 +135,9 @@ vim.keymap.set({ "n", "v" }, "<leader>bc", function() require('dap').continue() 
 vim.keymap.set('n', '<leader>so', function() require('dap').step_over() end, { desc = "DAP step over" })
 vim.keymap.set('n', '<leader>si', function() require('dap').step_into() end, { desc = "DAP step into" })
 vim.keymap.set('n', '<leader>sO', function() require('dap').step_out() end, { desc = "DAP step over" })
-vim.keymap.set('n', '<leader>lp',
-    function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
-    { desc = "DAP set breakpoint with log" })
+-- vim.keymap.set('n', '<leader>lp',
+--     function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
+--     { desc = "DAP set breakpoint with log" })
 vim.keymap.set('n', '<leader>dr', function() require('dap').repl.open() end, { desc = "DAP REPL open" })
 vim.keymap.set('n', '<leader>dl', function() require('dap').run_last() end, { desc = "DAP run last" })
 vim.keymap.set({ 'n', 'v' }, '<leader>dh', function() require('dap.ui.widgets').hover() end, { desc = "DAP hover" })
