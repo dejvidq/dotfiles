@@ -18,7 +18,15 @@
           "type": "shell",
           "style": "plain",
           "foreground": "#ff8800",
-          "template": "{{ .Name }} "
+          "template": "{{ .Name }}"
+        },
+        {
+            "type": "time",
+            "style": "plain",
+            "foreground": "#007ACC",
+            "properties": {
+                "time_format": "15:04:05"
+            }
         },
         {
           "type": "python",
@@ -46,7 +54,7 @@
           "type": "git",
           "style": "plain",
           "foreground": "#D0666F",
-          "template": "<#C591E8>❯</><#69FF94>❯</> \ue725 <#5FAAE8></>{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0}} \uf692 {{ .StashCount }}{{ end }}{{ if gt .WorktreeCount 0}} \uf1bb {{ .WorktreeCount }}{{ end }}<#5FAAE8> </>",
+          "template": "<#C591E8>❯</><#69FF94>❯</> \ue725 <#5FAAE8></>{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}<#5FAAE8> </>",
           "properties": {
             "branch_icon": "",
             "fetch_stash_count": true,
@@ -64,7 +72,7 @@
           "type": "executiontime",
           "style": "plain",
           "foreground": "#c074f0",
-          "template": "\ufbab",
+          "template": "\ufbab {{ .FormattedMs }} ",
           "properties": {
             "always_enabled": true,
             "style": "austin",

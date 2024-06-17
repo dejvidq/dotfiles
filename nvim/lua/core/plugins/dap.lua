@@ -4,6 +4,7 @@ return {
         "mfussenegger/nvim-dap",
         dependencies = {
             "mfussenegger/nvim-dap-python",
+            "nvim-neotest/nvim-nio",
         },
         config = function()
             require("dap-python").setup("C:\\Users\\dawid.kotwica2\\autoenv\\debug\\Scripts\\python.exe")
