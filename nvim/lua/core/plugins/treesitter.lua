@@ -8,5 +8,9 @@ return {
             "nvim-treesitter/nvim-treesitter-context",
         },
         build = ":TSUpdate",
+        opts = {
+            highlight = { enabled = true },
+            indent = { enabled = true },
+        },
     },
 }

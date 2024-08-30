@@ -57,3 +57,32 @@ opt.winminwidth = 5 -- Minimum window width
 if vim.fn.has("nvim-0.10") == 1 then
     opt.smoothscroll = true
 end
+require("nvim-treesitter.configs").setup({
+    ensure_installed = {
+        "bash",
+        "c",
+        "diff",
+        "html",
+        "java",
+        "javascript",
+        "jsdoc",
+        "json",
+        "jsonc",
+        "lua",
+        "luadoc",
+        "luap",
+        "markdown",
+        "markdown_inline",
+        "printf",
+        "python",
+        "query",
+        "regex",
+        "toml",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "xml",
+        "yaml",
+    },
+})
