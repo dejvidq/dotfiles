@@ -3,11 +3,9 @@ vim.keymap.set("i", "jk", "<ESC>")
 -- Copy & paste
 -- Yank into system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank motion to clipboard" }) -- yank motion
-vim.keymap.set({ "n", "v" }, "<leader>Y", '"+Y', { desc = "Yank line to clipboard" }) -- yank line
 
 -- Delete into system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>d", '"+d', { desc = "Delete motion to clipboard" }) -- delete motion
-vim.keymap.set({ "n", "v" }, "<leader>D", '"+D', { desc = "Delete motion to clipboard" }) -- delete line
+vim.keymap.set({ "n", "v" }, "<leader>dd", '"+d', { desc = "Delete motion to clipboard" }) -- delete motion
 
 -- Paste from system clipboard
 vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste after cursor from clipboard" }) -- paste after cursor
@@ -41,19 +39,19 @@ vim.keymap.set("n", "<leader>at", "<cmd>Telescope aerial<cr>", { desc = "Telesco
 vim.keymap.set("n", "{", "<cmd>AerialPrev<cr>", { desc = "Aerial previous" })
 vim.keymap.set("n", "}", "<cmd>AerialNext<cr>", { desc = "Aerial next" })
 -- Flash
-vim.keymap.set({ "n", "x", "o" }, "s", "<cmd>lua require('flash').jump()<cr>", { desc = "Flash" })
+vim.keymap.set({ "n", "x", "o" }, "<leader>s", "<cmd>lua require('flash').jump()<cr>", { desc = "Flash" })
 -- Resize window using <ctrl> arrow keys
 vim.keymap.set("n", "<leader><Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 vim.keymap.set("n", "<leader><Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 vim.keymap.set("n", "<leader><Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<leader><Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 -- Move Lines
-vim.keymap.set("n", "<C-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-vim.keymap.set("n", "<C-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-vim.keymap.set("i", "<C-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-vim.keymap.set("i", "<C-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
-vim.keymap.set("v", "<C-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-vim.keymap.set("v", "<C-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+vim.keymap.set("n", "<C-j>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
+vim.keymap.set("n", "<C-k>", "<cmd>m .-2<cr>==", { desc = "Move line up" })
+vim.keymap.set("i", "<C-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move line down" })
+vim.keymap.set("i", "<C-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move line up" })
+vim.keymap.set("v", "<C-j>", ":m '>+1<cr>gv=gv", { desc = "Move line down" })
+vim.keymap.set("v", "<C-k>", ":m '<-2<cr>gv=gv", { desc = "Move line up" })
 -- Clear search with <esc>
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 -- save file
@@ -112,3 +110,44 @@ vim.keymap.set("n", "<leader>st", "<cmd>TodoTelescope<cr>", { desc = "Telescope 
 -- Oil
 vim.keymap.set("n", "<leader>e", "<cmd>Oil --float .<cr>", { desc = "Oil in curr dir" })
 vim.keymap.set("n", "<leader>E", "<cmd>Oil --float " .. vim.fn.expand("%:p:h") .. "<cr>", { desc = "Oil in curr dir" })
+
+-- Refactor
+vim.keymap.set("x", "<leader>re", function() require('refactoring').refactor('Extract Function') end,
+    { desc = "Extract Function" })
+vim.keymap.set("x", "<leader>rf", function() require('refactoring').refactor('Extract Function To File') end,
+    { desc = "Extract Function To File" })
+vim.keymap.set("x", "<leader>rv", function() require('refactoring').refactor('Extract Variable') end,
+    { desc = "Extract Variable" })
+vim.keymap.set("n", "<leader>rI", function() require('refactoring').refactor('Inline Function') end,
+    { desc = "Inline Function" })
+vim.keymap.set({ "n", "x" }, "<leader>ri", function() require('refactoring').refactor('Inline Variable') end,
+    { desc = "Inline Variable" })
+vim.keymap.set("n", "<leader>rb", function() require('refactoring').refactor('Extract Block') end,
+    { desc = "Extract Block" })
+vim.keymap.set("n", "<leader>rbf", function() require('refactoring').refactor('Extract Block To File') end,
+    { desc = "Extract Block To File" })
+
+-- DAP
+vim.keymap.set({ "n", "v" }, "<leader>tb", function() require('dap').toggle_breakpoint() end,
+    { desc = "DAP toggle breakpoint" })
+vim.keymap.set({ "n", "v" }, "<leader>bc", function() require('dap').continue() end,
+    { desc = "DAP continue" })
+vim.keymap.set('n', '<leader>so', function() require('dap').step_over() end, { desc = "DAP step over" })
+vim.keymap.set('n', '<leader>si', function() require('dap').step_into() end, { desc = "DAP step into" })
+vim.keymap.set('n', '<leader>sO', function() require('dap').step_out() end, { desc = "DAP step over" })
+-- vim.keymap.set('n', '<leader>lp',
+--     function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
+--     { desc = "DAP set breakpoint with log" })
+vim.keymap.set('n', '<leader>dr', function() require('dap').repl.open() end, { desc = "DAP REPL open" })
+vim.keymap.set('n', '<leader>dl', function() require('dap').run_last() end, { desc = "DAP run last" })
+vim.keymap.set({ 'n', 'v' }, '<leader>dh', function() require('dap.ui.widgets').hover() end, { desc = "DAP hover" })
+vim.keymap.set({ 'n', 'v' }, '<leader>dp', function() require('dap.ui.widgets').preview() end, { desc = "DAP preview" })
+vim.keymap.set('n', '<leader>df', function()
+    local widgets = require('dap.ui.widgets')
+    widgets.centered_float(widgets.frames)
+end, { desc = "DAP frames" })
+vim.keymap.set('n', '<leader>ds', function()
+    local widgets = require('dap.ui.widgets')
+    widgets.centered_float(widgets.scopes)
+end, { desc = "DAP scopes" })
+vim.keymap.set("n", "<leader>dt", function() require('dap').terminate() end, { desc = "DAP terminate" })

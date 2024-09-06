@@ -1,5 +1,9 @@
 local opt = vim.opt
 vim.cmd.colorscheme("tokyonight")
+vim.cmd([[highlight clear CursorLineNr]])
+vim.cmd([[highlight clear LineNr]])
+vim.cmd([[highlight LineNr guifg=white]])
+vim.cmd([[highlight CursorLineNr guifg=yellow]])
 -- require("mason").setup()
 -- require("mason-lspconfig").setup()
 --
@@ -50,25 +54,35 @@ opt.undolevels = 10000
 opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
-opt.fillchars = {
-    foldopen = "",
-    foldclose = "",
-    -- fold = "⸱",
-    fold = " ",
-    foldsep = " ",
-    diff = "╱",
-    eob = " ",
-}
---
 if vim.fn.has("nvim-0.10") == 1 then
     opt.smoothscroll = true
 end
---
-vim.opt.foldlevel = 99
---
-if vim.fn.has("nvim-0.10") == 1 then
-    vim.opt.foldmethod = "expr"
-    vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-else
-    vim.opt.foldmethod = "indent"
-end
+require("nvim-treesitter.configs").setup({
+    ensure_installed = {
+        "bash",
+        "c",
+        "diff",
+        "html",
+        "java",
+        "javascript",
+        "jsdoc",
+        "json",
+        "jsonc",
+        "lua",
+        "luadoc",
+        "luap",
+        "markdown",
+        "markdown_inline",
+        "printf",
+        "python",
+        "query",
+        "regex",
+        "toml",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "xml",
+        "yaml",
+    },
+})
