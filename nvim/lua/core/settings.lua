@@ -4,31 +4,21 @@ vim.cmd([[highlight clear CursorLineNr]])
 vim.cmd([[highlight clear LineNr]])
 vim.cmd([[highlight LineNr guifg=white]])
 vim.cmd([[highlight CursorLineNr guifg=yellow]])
--- require("mason").setup()
--- require("mason-lspconfig").setup()
---
---
+vim.cmd([[highlight LineNrAbove guifg=#a6f1a5]])
+vim.cmd([[highlight LineNrBelow guifg=#a6f1a5]])
+
 vim.wo.relativenumber = true
---
 vim.o.mouse = "a"
---
 vim.o.undofile = true
---
 vim.wo.signcolumn = "yes"
---
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
---
 vim.o.termguicolors = true
---
 opt.expandtab = true -- Use spaces instead of tabs
 vim.o.tabstop = 4 -- A TAB character looks like 4 spaces
 vim.o.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.o.shiftwidth = 4
---
---
 opt.autowrite = true -- Enable auto write
---
 opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 3 -- Hide * markup for bold and italic
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
