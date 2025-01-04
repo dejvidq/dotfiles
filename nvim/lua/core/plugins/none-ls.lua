@@ -2,7 +2,7 @@ return {
     {
         "nvimtools/none-ls.nvim",
         event = { "BufReadPre", "BufNewFile" },
-        dependencies = { "mason.nvim" },
+        dependencies = { "mason.nvim", "nvimtools/none-ls-extras.nvim" },
         config = function()
             local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
             local null_ls = require("null-ls")
@@ -21,8 +21,9 @@ return {
                 end,
                 sources = {
                     null_ls.builtins.formatting.stylua,
-                    null_ls.builtins.diagnostics.flake8,
+                    require("none-ls.diagnostics.flake8"),
                     null_ls.builtins.formatting.black,
+                    null_ls.builtins.formatting.prettier,
                 },
             })
         end,
